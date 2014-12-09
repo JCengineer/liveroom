@@ -1,0 +1,69 @@
+/*globals*/
+		.clearfix{overflow: hidden;clear:both;}
+		.borderR25 {border-top-left-radius: 25px;border-bottom-right-radius: 25px;}
+		.borderR10 {border-top-left-radius: 10px;border-bottom-right-radius: 10px;}
+		.hidden{display: none;}
+		.logo:before{content:'LIVE';color:#FC5106;font-weight:bold;}
+		.logo:after{content:'ROOM';color:white;font-weight:bold;}
+		/*specifics*/
+		body {background-color:#FC5106;color:#fff;font-family: 'Exo 2', sans-serif;font-weight: 200;margin:0;}
+		header {text-align: center;color:#ccc;height:300px;
+							background: -moz-linear-gradient(left,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.96) 47%, rgba(0,0,0,1) 49%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+							background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0)), color-stop(47%,rgba(0,0,0,0.96)), color-stop(49%,rgba(0,0,0,1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+							background: -webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.96) 47%,rgba(0,0,0,1) 49%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+							background: -o-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.96) 47%,rgba(0,0,0,1) 49%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+							background: -ms-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.96) 47%,rgba(0,0,0,1) 49%,rgba(0,0,0,0) 100%); /* IE10+ */
+							background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.96) 47%,rgba(0,0,0,1) 49%,rgba(0,0,0,0) 100%); /* W3C */
+							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */}
+		#content {padding:25px;}
+		#productionDetails {color:#000;}
+		#productionDetails span,button {display:inline-block;margin:0 1%;width:31%;border:none;}
+			#productionDetails button {background-color: #000;color:#999;font-size:1.5em;cursor:pointer;}
+				#productionDetails button:after {content:'+';position: relative;float: right;}
+				#productionDetails button.active:after {content:'-';position: relative;float: right;}
+			#productionDetails div {margin:25px;padding:10px;background-color: rgba(0,0,0,.4);}
+		.songs .playAllSongs {cursor:pointer;color:#000;}
+		.songs .playAllSongs i{background:rgba(0,0,0,.8);color:#fff;padding:5px 25px;}
+		.songs .song{position:relative;
+								background: -moz-linear-gradient(-45deg,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 65%, rgba(255,255,255,.2) 100%); /* FF3.6+ */
+								background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(65%,rgba(0,0,0,0)), color-stop(100%,rgba(255,255,255,.2))); /* Chrome,Safari4+ */
+								background: -webkit-linear-gradient(-45deg,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 65%,rgba(255,255,255,.2) 100%); /* Chrome10+,Safari5.1+ */
+								background: -o-linear-gradient(-45deg,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 65%,rgba(255,255,255,.2) 100%); /* Opera 11.10+ */
+								background: -ms-linear-gradient(-45deg,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 65%,rgba(255,255,255,.2) 100%); /* IE10+ */
+								background: linear-gradient(135deg,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 65%,rgba(255,255,255,.2) 100%); /* W3C */
+								filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
+			.songs .song.collapsed{height:150px;overflow: hidden;}
+			.songs .song.collapsed:before { content: '+'; padding: 50px; width: 100%;height: 100%;position: absolute;float: left;z-index: 6;top: 0;left: 0;display: inline-block;color:white;font-size: 3em;}
+			.songs .song.collapsed:after { background: linear-gradient(to bottom, rgba(0,0,0,0), black);content: '';/* padding: 75px; */width: 100%;height: 100%;position: absolute;float: left;z-index: 5;top: 0;left: 0;display: inline-block;}
+			.songs .song h3{margin:0;padding:15px;}
+			.songs .song .playSong {cursor:pointer;}
+			.songs .song .songBars{margin:0;padding:0;float:left;position:relative;width:60%;}
+				.songBars:hover {z-index:10;}
+				.song .songBars .songBar {padding:10px 0 100px 0;}
+				.song .songBars audio {width:100%;}
+			.songs .song label{position:relative;top:-25px;left:15px;}
+				.songs progress {-webkit-appearance:none;appearance:none;width: 100%;height:30px;cursor:crosshair;}
+					.band progress[value]::-webkit-progress-bar {background-color: #555;border-radius: 2px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;}
+					.band progress[value]::-webkit-progress-value {background-color: red;border-radius: 2px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;}
+					.sound progress[value]::-webkit-progress-bar {background-color: #555;border-radius: 2px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;}
+					.sound progress[value]::-webkit-progress-value {background-color: green;border-radius: 2px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;}
+					.lighting progress[value]::-webkit-progress-bar {background-color: #555;border-radius: 2px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;}
+					.lighting progress[value]::-webkit-progress-value {background-color: orange;border-radius: 2px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;}
+				.songBar .tags {position: relative;top:40px;left:-20px;}
+					.songBar .tags .tag {-webkit-transform: rotate(30deg);display: inline-block;position: absolute;width:250px;cursor:pointer;}
+					.songBar .tags .tag:before{content:'\\ ';}
+					.songBar .tags .tag:hover{background-color:rgba(0,0,0,.8);z-index: 5;}
+					.songBar .tags .tag.suggestion {color:darkgrey;}
+					.songBar .tags .tag.query {color:red;}
+					.songBar .tags .tag.new {color:lightblue;}
+					.songBar .tags .tag.suggestion.approved {color:gold;}
+			.songs .song .songMeta{margin:0;padding:2%;float:right;top:-25px;position:relative;width:36%;height:65%;background-color: rgba(0,0,0,.7);}
+			.songs .song .songMeta .songMessages h4{margin:5px 0;}
+				.songs .song .songMessages .band:before{content:'band-';color:red;}
+				.songs .song .songMessages .sound:before{content:'sound-';color:green;}
+				.songs .song .songMessages .lighting:before{content:'lighting-';color:orange;}
+			.songs .song .songMeta .tagEditor button{display:inline-block; margin:5px;}
+
+
+		footer {background-color: #111;padding: none;margin:none;}
+		footer *{display: inline-block;padding:10px 25px;}
