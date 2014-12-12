@@ -18,6 +18,41 @@
 		});
 		$('header').click(function(e){ toggleHeaderHeight(true); });
 
+		handleUserButtons=function(e,ui){
+			var $this = $(this),
+				$parent = $this.parent();
+
+			if ($parent.attr('id') == "register"){
+				var name = $('#registerName').val(),
+					email = $('#registerEmail').val();
+				$.post('index.php',{register:true,name:name,email:email}).done(function(res){
+					$('#userDetails').html('The user details:<br>'+res);
+				}).error(function(res){
+					alert('Error registering your account: '+res.responseText);
+				});
+			} else if ($parent.attr('id') == "login"){
+				$.post('index.php',{login:true,name:name,email:email}).done(function(res){
+					$('#user').append('Congratulations. You have set up an account.<br>Please check your email account so you can verify your account and continue.');
+				}).error(function(res){
+					alert('Error logging into your account: '+res.responseText);
+				});
+			}
+		}
+
+		$('#user span').click(function(e){
+			if ( $('#userDetails').hasClass('hidden') ){
+				$('#userDetails').removeClass('hidden');
+				$('#user .fa').removeClass('fa-plus').addClass('fa-minus');
+				
+				$('#user button').bind('click',handleUserButtons);
+			} else {
+				$('#userDetails').addClass('hidden');
+				$('#user .fa').addClass('fa-plus').removeClass('fa-minus');
+			}
+
+
+		});
+
 		//"collapse" all songs except one
 		$.each($('.song'),function(i,el){if (i!=0) $(el).addClass('collapsed');});
 		$('.songs').on('click','.collapsed',function(){

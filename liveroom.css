@@ -5,6 +5,9 @@
 		.hidden{display: none;}
 		.logo:before{content:'LIVE';color:#FC5106;font-weight:bold;}
 		.logo:after{content:'ROOM';color:white;font-weight:bold;}
+		input {font-size:1.1em;border-top-left-radius: 5px;border-bottom-right-radius: 5px; margin:5px;}
+		button {font-size:1.1em;font-weight:bolder;background:black;color:white;border:none;border-top-left-radius: 5px;border-bottom-right-radius: 5px; margin:5px;padding:10px;}
+		.note {opacity: .7;font-size: .8em;}
 		/*specifics*/
 		body {background-color:#FC5106;color:#fff;font-family: 'Exo 2', sans-serif;font-weight: 200;margin:0;}
 		header {text-align: center;color:#ccc;height:300px;
@@ -15,15 +18,20 @@
 							background: -ms-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.96) 47%,rgba(0,0,0,1) 49%,rgba(0,0,0,0) 100%); /* IE10+ */
 							background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.96) 47%,rgba(0,0,0,1) 49%,rgba(0,0,0,0) 100%); /* W3C */
 							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */}
+		#user {text-align: center;}
+			#user span {display:inline-block;padding:10px;background:rgba(0,0,0,.7);border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;}
+			#user #userDetails {margin:25px 10%;background:rgba(0,0,0,.7);}
+			#user #userDetails #register {position: relative;float: left;width: 30%;margin:25px 10%;}
+			#user #userDetails #login {position: relative;float: right;width: 30%;margin:25px 10%;}
 		#content {padding:25px;}
 		#productionDetails {color:#000;}
-		#productionDetails span,button {display:inline-block;margin:0 1%;width:31%;border:none;}
+		#productionDetails span, #productionDetails button {display:inline-block;margin:0 1%;width:31%;border:none;}
 			#productionDetails button {background-color: #000;color:#999;font-size:1.5em;cursor:pointer;}
 				#productionDetails button:after {content:'+';position: relative;float: right;}
 				#productionDetails button.active:after {content:'-';position: relative;float: right;}
-			#productionDetails div {margin:25px;padding:10px;background-color: rgba(0,0,0,.4);}
-		.songs .playAllSongs {cursor:pointer;color:#000;}
-		.songs .playAllSongs i{background:rgba(0,0,0,.8);color:#fff;padding:5px 25px;}
+			#productionDetails div {margin:25px;padding:10px;background-color: rgba(0,0,0,.4);font-size: 1.1em;font-weight:bold;}
+		.songs .playAllSongs {cursor:pointer;color:#000;padding:0 25px;font-size: 1.5em;font-weight: bold;}
+		.songs .playAllSongs i{background:rgba(0,0,0,.8);color:#fff;padding:5px 50px;}
 		.songs .song{position:relative;
 								background: -moz-linear-gradient(-45deg,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 65%, rgba(255,255,255,.2) 100%); /* FF3.6+ */
 								background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(65%,rgba(0,0,0,0)), color-stop(100%,rgba(255,255,255,.2))); /* Chrome,Safari4+ */
