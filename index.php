@@ -1,5 +1,5 @@
 <?php 
-	include 'php/model.php';
+	include 'php/models/user.php';
 	include 'php/controller.php';
 
 	$demo=true;
@@ -7,17 +7,20 @@
 
 	$user;
 	$userOptions = '';
-	//if this request is to log in
+	//if the user is logged in
 	if ( $user = loggedIn() ){
 		$demo=false;
+	//if this request is to log in
 	} else if ( isLoggingIn() ){
 		$user = $d;
 		if ($user){
 			exit( $userOptions = getUserOptions($user) );
 		}
+	//if this request is to register a new account
 	} else if ( isRegistering() ){
-		echo "registering";
 		exit( register() );
+	} else if ( isActivating() ){
+		exit( activate() );
 	}
 
 

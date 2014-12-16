@@ -26,13 +26,13 @@
 				var name = $('#registerName').val(),
 					email = $('#registerEmail').val();
 				$.post('index.php',{register:true,name:name,email:email}).done(function(res){
-					$('#userDetails').html('The user details:<br>'+res);
+					$('#userDetails').html('Congratulations. You have created an account.<br>Please check your email account so you can verify your details and continue.');
 				}).error(function(res){
 					alert('Error registering your account: '+res.responseText);
 				});
 			} else if ($parent.attr('id') == "login"){
 				$.post('index.php',{login:true,name:name,email:email}).done(function(res){
-					$('#user').append('Congratulations. You have set up an account.<br>Please check your email account so you can verify your account and continue.');
+					$('#userDetails').html('The user details:<br>'+res);
 				}).error(function(res){
 					alert('Error logging into your account: '+res.responseText);
 				});
