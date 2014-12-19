@@ -49,8 +49,6 @@
 				$('#userDetails').addClass('hidden');
 				$('#user .fa').addClass('fa-plus').removeClass('fa-minus');
 			}
-
-
 		});
 
 		//"collapse" all songs except one

@@ -13,15 +13,16 @@
 	}
 
 	function isLoggingIn(){
-		if ( isset( $_POST['login'] ) && isset( $_POST['email'] ) && isset( $_POST['password'] ) ){
+		if ( isset( $_POST['login'] ) && isset( $_POST['email'] ) && isset( $_POST['p'] ) ){
 			return true;
 		} else return false;
 	}
 
 	function logIn(){
-		if ( isset( $_POST['email'] ) && isset( $_POST['pass'] ) ){
-			return 'user log-in todo';
-		} else return false;
+		$email = $_POST['email'];
+		$password = $_POST['p'];
+
+		return 'user log-in todo '.$email;
 	}
 
 	function isRegistering(){
@@ -44,7 +45,7 @@
 	           "email" => $email,
 	           "account" => 'notactivated',
 	           "created" => Date('Y-M-d h:m:s'),
-	           "string" => $string
+	           "password" => $string
 			);
 			$id = $db->insert('users', $data);
 
@@ -70,51 +71,64 @@
 	}
 
 	function isActivating(){
-		if ( isset( $_POST['activate'] ) && isset( $_POST['user'] ) && isset( $_POST['string'] ) ){
+		if ( isset( $_GET['activate'] ) && isset( $_GET['user'] ) && isset( $_GET['str'] ) ){
 			return true;
 		} else return false;
 	}
 
-	function register(){
+	function getActivate(){
 		global $db;
-		$email = $_POST['email'];
-		$name = $_POST['name'];
-		$user = $db->where('email',$email)->get('users');
-
-		if ( sizeof( $db->where('email',$email)->get('users') ) == 0 ){
-				
-			//send email and check
-			$data = Array ("name" => $name,
-	           "email" => $email,
-	           "account" => 'notactivated',
-	           "created" => Date('Y-M-d h:m:s')
-			);
-			$id = $db->insert('users', $data);
-
-			if($id){	
-				$body = $name."<br>Welcome to the liveroom!<br><br>".
-						"To active your account, click on the link below<br><br>".
-						"<b><a href='www.jclifford.ie/liveroom/index.php?activating=true&user=".$id."&str=".randomString('20').">Activate</a><b><br><br>".
-						"Thank you,<br>".
-						"James Clifford";
-				$mailSent = sendEmail($email,"New LiveRoom User - Activate your account",$body);
-				if ($mailSent) return true;
-				else {
-					header("HTTP/1.0 500 Internal Server Error");
-					exit( "Email address not valid." );
-				} 
+		$userId = $_GET['user'];
+		$string = $_GET['str'];
+		$user = $db->where('id',$userId)->get('users')[0];
+		if ( $user['account'] == 'notactivated' ){
+			if ( $user['password'] == $string ){
+				return "<div id='activate'>
+							<h2>Activate your account</h2>
+							<input id='passwordUserAccount' type='password' placeholder='Password'></input><br>
+							<input id='confirmPasswordUserAccount' type='password' placeholder='Confirm Password'></input><br>
+							<button id='activateUserAccount' data-userid='$userId'>Activate</button><br>
+							<h3 id='messageActivateUserAccount'><h3>
+						</div>";
 			} else {
-				header("HTTP/1.0 500 Internal Server Error");
-				exit( "Database connection failed." );
+				return "<div id='activate'>
+							<h2 style='color:red;'>Invalid user activation string.</h2>
+							<a href='index.php'><button>Log in</button></a>
+						</div>";
 			}
 		} else {
-			header("HTTP/1.0 500 Internal Server Error");
-			exit( "User already exists." );
+			return "<div id='activate'>
+						<h2 style='color:red;'>User already activated.</h2>
+						<a href='index.php'><button>Log in</button></a>
+					</div>" ;
 		}
 	}
 
-	function userOptions($user){
-		return 'userOptions todo';
+	function isActivated(){
+		if ( isset( $_POST['activated'] ) && isset( $_POST['p'] ) && isset( $_POST['user'] ) ){
+			return true;
+		} else return false;
 	}
+
+	function postActivate(){
+		global $db;
+		$p = $_POST['p'];
+		$userId = $_POST['user'];
+		//validation done client side
+		$password = sha1($p);
+		$user = $db->where('id',$userId)->get('users')[0];
+		if ( $user['account'] == 'notactivated' ){
+			
+			$data = array('password' => $password, 'account' => 'free' );
+			$id =$db->where('id',$userId)->update('users', $data);
+			return "Activated";
+			
+		} else {
+			header("HTTP/1.0 500 Internal Server Error");
+			exit( "User already activated." );
+		}
+	}
+
+	
 
 ?>

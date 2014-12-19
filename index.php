@@ -3,6 +3,7 @@
 	include 'php/controller.php';
 
 	$demo=true;
+	$activating=false;
 	//if session has user logged in
 
 	$user;
@@ -20,7 +21,9 @@
 	} else if ( isRegistering() ){
 		exit( register() );
 	} else if ( isActivating() ){
-		exit( activate() );
+		$activating = getActivate();
+	} else if ( isActivated() ){
+		exit( postActivate() );
 	}
 
 
@@ -33,49 +36,44 @@
 	<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='liveroom.css' rel='stylesheet' type='text/css'>
-
-
 </head>
 <body>
 	<header>
 		<div>
 			<h1>Pre-production: The <span class="logo"></span></h1>
 			<h2>GET YOURSELVES TOGETHER</h2>
-			<h3>
-				This is the place where you can create a better live show.<br>
+			<h3>This is the place where you can create a better live show.<br>
 				It's 2014 and we still can't sort out the disconnect<br>
-				between band, sound and lighting.<br>
-				Time to change.
+				between band, sound and lighting.
 			</h3>
-			<h4>
-				You don't even have to look at eachother<br>
-				Don't worry!
-			<h4>
+			<h4>You can change that, here in the <span class="logo"></span>.<h4>
 		</div>
 	</header>
 
 	<div id="user">
-		<span>
-			<?php echo ($demo?"Log In / Register":$user['name']); ?>
-			<br>
-			<i class="fa fa-plus" style="margin-top:10px;"></i>
-		</span>
-		<div id="userDetails" class="borderR10 clearfix hidden">
-			<div id="register">
-				Register:<br>
-				<input type="text" id="registerName" placeholder="Name"></input><br>
-				<input type="text" id="registerEmail" placeholder="Email"></input><br>
-				<b class="note">We'll send you an email to confirm the registration.</b><br>
-				<button>Register</button>
+		<?php if ($activating===false){ ?>
+			<span>
+				<?php echo ($demo?"Log In / Register":$user['name']); ?>
+				<br>
+				<i class="fa fa-plus" style="margin-top:10px;"></i>
+			</span>
+			<div id="userDetails" class="borderR10 clearfix hidden">
+				<div id="register">
+					Register:<br>
+					<input type="text" id="registerName" placeholder="Name"></input><br>
+					<input type="text" id="registerEmail" placeholder="Email"></input><br>
+					<b class="note">We'll send you an email to confirm the registration.</b><br>
+					<button>Register</button>
+				</div>
+				<div id="login">
+					Log In:<br>
+					<input type="text" id="loginEmail" placeholder="Email"></input><br>
+					<input type="text" id="loginPassword" placeholder="Password"></input><br>
+					<a class="note"><b>Forgot your password? todo</b></a><br>
+					<button>Log In</button>
+				</div>
 			</div>
-			<div id="login">
-				Log In:<br>
-				<input type="text" id="loginEmail" placeholder="Email"></input><br>
-				<input type="text" id="loginPassword" placeholder="Password"></input><br>
-				<a class="note"><b>Forgot your password? todo</b></a><br>
-				<button>Log In</button>
-			</div>
-		</div>
+		<?php } else echo '<div id="userDetails" class="borderR10 clearfix">'.$activating.'</div>'; ?>
 	</div>
 	
 
@@ -194,4 +192,49 @@
 	<!-- javascript -->
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="liveroom.js"></script>
+
+
+	<?php if ($activating!==false){ ?>
+		<script>
+			$('#activateUserAccount').click(function(){
+				$('#activateUserAccount').attr('disabled',true);
+				var p=$('#passwordUserAccount').val(), 
+					cP=$('#confirmPasswordUserAccount').val(),
+					userId=$('#activateUserAccount').data('userid');
+				//check userId
+				if ( !userId ){
+					$('#messageActivateUserAccount').html('Invalid user id.<br>Please try again.');
+					$('#messageActivateUserAccount').css('color','red');
+					$('#activateUserAccount').attr('disabled',false);
+					return false;
+				}
+				//check password length
+				if (p.length < 6){
+					$('#messageActivateUserAccount').html('Please use a longer password.<br>Please try again.');
+					$('#messageActivateUserAccount').css('color','red');
+					$('#activateUserAccount').attr('disabled',false);
+					return false;
+				}
+				//check confirm password is same as password fields
+				if (p==cP){
+					$.post('index.php', {activated:true,user:userId, p:p}).done(function(result){
+						$('#messageActivateUserAccount').html(result);
+						if (result == "Activated"){
+							$('#messageActivateUserAccount').css('color','green');
+						}
+					}).error(function(result){
+						$('#messageActivateUserAccount').html('Error: '+result.responseText+'<br>Please try again.');
+						$('#messageActivateUserAccount').css('color','red');
+						$('#activateUserAccount').attr('disabled',false);
+					});
+				} else {
+					$('#messageActivateUserAccount').html('The passwords don\'t match.<br>Please try again.');
+					$('#messageActivateUserAccount').css('color','red');
+					$('#activateUserAccount').attr('disabled',false);
+				}
+			})
+		</script>
+	<?php } ?>
+
+
 </body>

@@ -23,6 +23,7 @@
 			#user #userDetails {margin:25px 10%;background:rgba(0,0,0,.7);}
 			#user #userDetails #register {position: relative;float: left;width: 30%;margin:25px 10%;}
 			#user #userDetails #login {position: relative;float: right;width: 30%;margin:25px 10%;}
+			#user #userDetails #activate {width: 80%;margin:25px 10%;}
 		#content {padding:25px;}
 		#productionDetails {color:#000;}
 		#productionDetails span, #productionDetails button {display:inline-block;margin:0 1%;width:31%;border:none;}
