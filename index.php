@@ -1,4 +1,5 @@
 <?php 
+	include 'php/env.php';
 	include 'php/models/user.php';
 	include 'php/controller.php';
 

@@ -1,10 +1,8 @@
 <?php
 
-
 	require_once ('MysqliDb.php');
-	$db = new MysqliDb ('localhost', 'root', '', 'liveroom'); //local
-	//$db = new MysqliDb ('host', 'username', 'password', 'databaseName');//production
-
+	$db = new MysqliDb ('localhost', $user, $password, $env=='jclifford'?'visilitc_liveroom':'liveroom');
+	
 	function loggedIn(){
 		if ( isset($_SESSION['user']) ) {
 			$user = 'user db_lookup todo';
